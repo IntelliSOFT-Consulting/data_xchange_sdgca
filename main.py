@@ -86,24 +86,26 @@ def create_csv(filename):
     with open(filename, 'w') as f:
         writer = csv.writer(f)
         writer.writerow(
-            ['dataelementid', 'categoryoption','period', 'value','storedby']
+            ['dataelement', 'period', 'orgunit', 'catoptcombo', 'attroptcombo' 'value','storedby']
         )
 
 
 def create_array(data):
     storedby = 'fegati'
+    orgunit = 'YIA7WLCOZd4'
+    attroptcombo = ''
     for dataitems in data:
         dataelement_categoryoption = dataitems[0]
         element_cat = dataelement_categoryoption.split('.')
         dataelement = element_cat[0]
-        categoryoption = element_cat[1]
+        catoptcombo = element_cat[1]
         period = dataitems[1]
         if (".0" in dataitems[2]):
             value = int(float(dataitems[2]))
         else:
             value = float(dataitems[2])
 
-        add_to_csv([dataelement,categoryoption,period,value,storedby])
+        add_to_csv([dataelement,period,orgunit,catoptcombo,attroptcombo,value,storedby])
 
 
 
