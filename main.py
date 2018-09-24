@@ -11,30 +11,61 @@ import requests
 
 USERNAME = 'fegati'
 PASSWORD = 'Sdgca@2018'
-FETCH_URL = 'https://test.sdgca.intellisoftkenya.com/nationalmrs/api/29/analytics.json?dimension=pe:2015&dimension=' \
-            'dx:NCsJ0u0J5kO;pTOpNf6zkTv;mEtKA2HMRkT;HNUVvzz5Mcb;TsZLukacJ6T;wD1WS24kqQR;pBeH3AFPieZ;cBaVY4cTk1A;nsPgvbrDPwQ;' \
-            'jHGHRAQ0RcL;SdGVvEDBReG;Hz6LcIaTWfY;CDWr02Kxj2X;tqDcS5WQm3T;JhZxmBFYmuL;dGsxottaM20;pH4ByZuNaRi;SDnpTlaTfuA;Bt7EwzXnP1B;' \
-            'NXhSDQe6OXB;KnUVvNnHny2;LgOeUwjhGva;OyAEqNG6RMg;Yk7ej3qZXDv;wZdc6Gvc3um;F2kfyiytNRy;r1tLOkgBXcw;pADPo7G4Q8n;NS7zBWqKEXq;' \
-            'Cl2zeNxNNEM;SJCuhkbZCqN;K35BjlZcXYV;mFeVazpypaZ;erR6FSvuScN;IcUjJW2C9Im;atbJtXLSbyf;qj15XcoUCDI;b1IbuE6i9Tc;Vak8DH4WNiD;' \
-            'DtwIkKQchib;HW9SvVBHjfX;Rd6xzemL4S5;iCihpG4jRzH;mH9XBhoW1Cf;pZWwlUZworn;con8QLEKvTB;rR9ege9U0X3;fqqZhw9AMvn;C22hsuW2rE5;' \
-            'VM8F1Q8EVxB;s4SKEVPtp2m;uR57Bcq3Rgq;KjU4p8nocJQ;aRe93xxQav7;RbhomZoQGDs;HzqYEXs8hoO;UKUOkTXaoz6;SdxjNoHJO7z;LjiN9Kh17Bj;' \
-            'FOp1pCnNuBo;JFvlTEuknXq;W0lTMtPnlip;o7TozpqU8FT;yj4fJbzFrfg;dlinqsDHurO;JCrwCxh05iE;MemsRPHqriD;wjtsNUXEZmA;X3pqi7fAvgs;' \
-            'qO7NEsYVVXN;w8oLlRxIzST;ETzoIk2kLNK;R5tq2LHUK6X;vFCUplW58Dq;x7dHhPJWJPe;K10M0TiP5Id;vmzqxcCgqPd;aGhDRO2S4Lu;Ti6DZBxiGsG;' \
-            'Vid4sMI2rtf;TU2VGO7AnYK;GYeuH3xRLlD;HcMZhdKHITQ;xwCjzKpZEMe;MPwkNd0OtI2;AhMpu40ZhnW;q8mm20cJoYs;ES8fQnz9u4A;JdwU3qMoYxO;' \
-            'SBmI91hjx3T;Ebrx1HB3nkN;kqnpnHrcTcg;q534i5qtxG2;ofjriq3zC1Y;UTKJklNQim3;ygD0dPHpavK;rW9QXpbg4Xd;cZ1kDXBQ7C2;jCcnjrZJy12;' \
-            'nMmhSIi5hLE;UkPFxKSr0wb;ukncn1Hlzdf;goDhooTdnpA;XgtR08R2tWT;aXgQjzyBOHY;N6fWQSZhzXS;QUGGAviJi4F;EvxREEMoa5E;OEpkeiWuqX0;' \
-            'iIHXuIzCh9H;DGX5LV26AD1;EUVnujhYWcR;kCRn8WKklIR;zT3hIUDKfgl;C0ScMXqXY02;WQGDscmrGgi;oqhLWFqRC14;ReqlS094zxC;rZQRXUXUPaL;' \
-            'NlcSFvZFfjA;ACLqta1bLlC;E8M2iiHaKLh;tl6Qlw1d0FB;j6NGNhKM1jz;MpwayQltPTy;Gtrz0rkNIH9;qVkMsM6gB9n;dX49L52V9WM;xYjKHmNPMKu;' \
-            'KltV9viaHHG;bKFp3z7BOK7;ePlRlJHXijB;isVafLZvrzO;dAbyaqzPFQu;nQDrXyuARRa;R64mkjYs7B7;Djjg8FIvCKp;tvhODPVwvvV;U34Rhq28dIv;' \
-            'sUHIdkbigKw;o8atQWjlEQ5;D1xcT46JCVw;NqFPQJkDE9I;oXdk88u7wtf;WCjZOCH6jPx;CXnbOm2RZE1;y39BBEAsVXl;HrnVSfYnHma;rrjMth4f11Z;' \
-            'fcy9TKaPBS0;TQGrrzcVi9a;YKfRIUfnqaw;grluc6vgaSM;F8JgS20k6r7;LGR9NIOhJZN;doGQYyiL5Xc;VGcl0oGA3gQ;wgG0LeHPhme;UYfKX2Zko4k;' \
-            'lAJhTUbm4uq;H45l65Grp8h;LmtfIaGo0ze;KBuWLWOnaDX;fT9njJ08ONo;DYoyQl1eYOo;ixPGl1NVAjc;M7BMX4KeItQ;QF7w41u2GJH;OI8W4V2UeCw;' \
-            'nhBNZvraNtR;J6mhwkHXYRX;cgp29l4lidD;APPRHhMypTn;Et4Jnj4Y0bx;jcWXxKiW0i4;DC82t4TqvSt;lWs0BXDInz8;lsR89zdhpE7;ynSFHBIYfAc;' \
-            'KI4KGmBjeK5;zLZFU6m9B0O;fg10UJuPwYW;V9ahdUlT8ak;uM0hXE3jV3V;f3HhCfTEkZh;cx5zefVyAZC;Yo5wu8Xtiss;h529oFxp0fz;XbyQiRu1Ut1;' \
-            'jvfrnV2dyE6;huEkNaUiiZS;KaRLMIg67ut;EsW7jXi2mNg;LXBAztHs8GC;jtMK6hK3BnU;IGpQdzyB9JL;umJef6viQsI;NO17dTDKMMl;piR74Xk7nQY;' \
-            'NtkFpqrWUUz;tFC6V5nnzan;lzvT5c6XGaS;fGrYKYgsz56;cIiBVaVnyqb;bkSUYeNHvXG;OnvFPyD5WQ4;bKVIl5DFvYH;j4w8plpRTl9;b2JULRR29Vr;' \
-            'OqkExkc8YQg;WNbwHJdi9fj;QIdqsSCdmSP;zrYzxKPMCUf;Uqj4TFaAjVJ;NJiuosvvTqR;R2mSVduTEHb;IifjkFPTvF9;upip89aqbWr;L4YmBBm4RmP;' \
-            'iXJmz0gayg2&filter=ou:YIA7WLCOZd4&displayProperty=NAME'
+FETCH_URL = 'https://test.sdgca.intellisoftkenya.com/nationalmrs/api/29/analytics.json?dimension=pe:2015&dimension=dx:LGR9NIOhJZN.HllvX50cXC0;' \
+            'doGQYyiL5Xc.HllvX50cXC0;VGcl0oGA3gQ.HllvX50cXC0;wgG0LeHPhme.HllvX50cXC0;UYfKX2Zko4k.HllvX50cXC0;lAJhTUbm4uq.HllvX50cXC0;' \
+            'H45l65Grp8h.HllvX50cXC0;LmtfIaGo0ze.HllvX50cXC0;KBuWLWOnaDX.HllvX50cXC0;fT9njJ08ONo.HllvX50cXC0;DYoyQl1eYOo.HllvX50cXC0;' \
+            'ixPGl1NVAjc.HllvX50cXC0;M7BMX4KeItQ.HllvX50cXC0;QF7w41u2GJH.HllvX50cXC0;OI8W4V2UeCw.HllvX50cXC0;nhBNZvraNtR.HllvX50cXC0;' \
+            'J6mhwkHXYRX.HllvX50cXC0;cgp29l4lidD.HllvX50cXC0;APPRHhMypTn.HllvX50cXC0;Et4Jnj4Y0bx.HllvX50cXC0;jcWXxKiW0i4.HllvX50cXC0;' \
+            'DC82t4TqvSt.HllvX50cXC0;lWs0BXDInz8.HllvX50cXC0;lsR89zdhpE7.HllvX50cXC0;ynSFHBIYfAc.HllvX50cXC0;KI4KGmBjeK5.HllvX50cXC0;' \
+            'zLZFU6m9B0O.HllvX50cXC0;fg10UJuPwYW.HllvX50cXC0;V9ahdUlT8ak.HllvX50cXC0;uM0hXE3jV3V.HllvX50cXC0;f3HhCfTEkZh.HllvX50cXC0;' \
+            'cx5zefVyAZC.HllvX50cXC0;Yo5wu8Xtiss.HllvX50cXC0;h529oFxp0fz.HllvX50cXC0;XbyQiRu1Ut1.HllvX50cXC0;jvfrnV2dyE6.HllvX50cXC0;' \
+            'huEkNaUiiZS.ssMY53iFjYm;huEkNaUiiZS.sLKRSW7xmwp;huEkNaUiiZS.sJUGNYho7Ey;huEkNaUiiZS.bJmK5mlfvQk;huEkNaUiiZS.RmWCNbUlKNT;' \
+            'huEkNaUiiZS.iEgy3xKqVi5;huEkNaUiiZS.SiFHV5KVTgY;huEkNaUiiZS.SOw3NHN47G7;huEkNaUiiZS.r8hBd63qzn4;KaRLMIg67ut.ssMY53iFjYm;' \
+            'KaRLMIg67ut.sLKRSW7xmwp;KaRLMIg67ut.sJUGNYho7Ey;KaRLMIg67ut.bJmK5mlfvQk;KaRLMIg67ut.RmWCNbUlKNT;KaRLMIg67ut.iEgy3xKqVi5;' \
+            'KaRLMIg67ut.SiFHV5KVTgY;KaRLMIg67ut.SOw3NHN47G7;KaRLMIg67ut.r8hBd63qzn4;EsW7jXi2mNg.HllvX50cXC0;LXBAztHs8GC.HllvX50cXC0;' \
+            'jtMK6hK3BnU.HllvX50cXC0;IGpQdzyB9JL.HllvX50cXC0;umJef6viQsI.HllvX50cXC0;NO17dTDKMMl.HllvX50cXC0;piR74Xk7nQY.HllvX50cXC0;' \
+            'NtkFpqrWUUz.HllvX50cXC0;tFC6V5nnzan.HllvX50cXC0;lzvT5c6XGaS.HllvX50cXC0;fGrYKYgsz56.HllvX50cXC0;cIiBVaVnyqb.HllvX50cXC0;' \
+            'bkSUYeNHvXG.HllvX50cXC0;OnvFPyD5WQ4.HllvX50cXC0;bKVIl5DFvYH.HllvX50cXC0;j4w8plpRTl9.HllvX50cXC0;b2JULRR29Vr.HllvX50cXC0;' \
+            'OqkExkc8YQg.HllvX50cXC0;WNbwHJdi9fj.HllvX50cXC0;QIdqsSCdmSP.HllvX50cXC0;zrYzxKPMCUf.HllvX50cXC0;Uqj4TFaAjVJ.HllvX50cXC0;' \
+            'NJiuosvvTqR.HllvX50cXC0;R2mSVduTEHb.HllvX50cXC0;IifjkFPTvF9.HllvX50cXC0;upip89aqbWr.HllvX50cXC0;L4YmBBm4RmP.HllvX50cXC0;' \
+            'iXJmz0gayg2.HllvX50cXC0;wD1WS24kqQR.ssMY53iFjYm;wD1WS24kqQR.sLKRSW7xmwp;wD1WS24kqQR.sJUGNYho7Ey;wD1WS24kqQR.bJmK5mlfvQk;' \
+            'wD1WS24kqQR.RmWCNbUlKNT;wD1WS24kqQR.iEgy3xKqVi5;wD1WS24kqQR.SiFHV5KVTgY;wD1WS24kqQR.SOw3NHN47G7;wD1WS24kqQR.r8hBd63qzn4;' \
+            'TsZLukacJ6T.ssMY53iFjYm;TsZLukacJ6T.sLKRSW7xmwp;TsZLukacJ6T.sJUGNYho7Ey;TsZLukacJ6T.bJmK5mlfvQk;TsZLukacJ6T.RmWCNbUlKNT;' \
+            'TsZLukacJ6T.iEgy3xKqVi5;TsZLukacJ6T.SiFHV5KVTgY;TsZLukacJ6T.SOw3NHN47G7;TsZLukacJ6T.r8hBd63qzn4;HNUVvzz5Mcb.ssMY53iFjYm;' \
+            'HNUVvzz5Mcb.sLKRSW7xmwp;HNUVvzz5Mcb.sJUGNYho7Ey;HNUVvzz5Mcb.bJmK5mlfvQk;HNUVvzz5Mcb.RmWCNbUlKNT;HNUVvzz5Mcb.iEgy3xKqVi5;' \
+            'HNUVvzz5Mcb.SiFHV5KVTgY;HNUVvzz5Mcb.SOw3NHN47G7;HNUVvzz5Mcb.r8hBd63qzn4;mEtKA2HMRkT.ssMY53iFjYm;mEtKA2HMRkT.sLKRSW7xmwp;' \
+            'mEtKA2HMRkT.sJUGNYho7Ey;mEtKA2HMRkT.bJmK5mlfvQk;mEtKA2HMRkT.RmWCNbUlKNT;mEtKA2HMRkT.iEgy3xKqVi5;mEtKA2HMRkT.SiFHV5KVTgY;' \
+            'mEtKA2HMRkT.SOw3NHN47G7;mEtKA2HMRkT.r8hBd63qzn4;pTOpNf6zkTv.ssMY53iFjYm;pTOpNf6zkTv.sLKRSW7xmwp;pTOpNf6zkTv.sJUGNYho7Ey;' \
+            'pTOpNf6zkTv.bJmK5mlfvQk;pTOpNf6zkTv.RmWCNbUlKNT;pTOpNf6zkTv.iEgy3xKqVi5;pTOpNf6zkTv.SiFHV5KVTgY;pTOpNf6zkTv.SOw3NHN47G7;' \
+            'pTOpNf6zkTv.r8hBd63qzn4;NCsJ0u0J5kO.ssMY53iFjYm;NCsJ0u0J5kO.sLKRSW7xmwp;NCsJ0u0J5kO.sJUGNYho7Ey;NCsJ0u0J5kO.bJmK5mlfvQk;' \
+            'NCsJ0u0J5kO.RmWCNbUlKNT;NCsJ0u0J5kO.iEgy3xKqVi5;NCsJ0u0J5kO.SiFHV5KVTgY;NCsJ0u0J5kO.SOw3NHN47G7;NCsJ0u0J5kO.r8hBd63qzn4;' \
+            'pBeH3AFPieZ.HllvX50cXC0;cBaVY4cTk1A.HllvX50cXC0;nsPgvbrDPwQ.HllvX50cXC0;jHGHRAQ0RcL.HllvX50cXC0;SdGVvEDBReG.HllvX50cXC0;' \
+            'Hz6LcIaTWfY.HllvX50cXC0;CDWr02Kxj2X.HllvX50cXC0;tqDcS5WQm3T.HllvX50cXC0;JhZxmBFYmuL.HllvX50cXC0;dGsxottaM20.HllvX50cXC0;' \
+            'pH4ByZuNaRi.HllvX50cXC0;SDnpTlaTfuA.HllvX50cXC0;Bt7EwzXnP1B.HllvX50cXC0;NXhSDQe6OXB.HllvX50cXC0;KnUVvNnHny2.HllvX50cXC0;' \
+            'LgOeUwjhGva.HllvX50cXC0;OyAEqNG6RMg.HllvX50cXC0;Yk7ej3qZXDv.HllvX50cXC0;wZdc6Gvc3um.HllvX50cXC0;F2kfyiytNRy.HllvX50cXC0;' \
+            'r1tLOkgBXcw.HllvX50cXC0;pADPo7G4Q8n.HllvX50cXC0;NS7zBWqKEXq.HllvX50cXC0;Cl2zeNxNNEM.HllvX50cXC0;SJCuhkbZCqN.HllvX50cXC0;' \
+            'K35BjlZcXYV.HllvX50cXC0;mFeVazpypaZ.HllvX50cXC0;erR6FSvuScN.HllvX50cXC0;IcUjJW2C9Im.HllvX50cXC0;atbJtXLSbyf.HllvX50cXC0;' \
+            'qj15XcoUCDI.HllvX50cXC0;b1IbuE6i9Tc.HllvX50cXC0;Vak8DH4WNiD.HllvX50cXC0;DtwIkKQchib.HllvX50cXC0;HW9SvVBHjfX.HllvX50cXC0;' \
+            'Rd6xzemL4S5.HllvX50cXC0;iCihpG4jRzH.HllvX50cXC0;mH9XBhoW1Cf.HllvX50cXC0;pZWwlUZworn.HllvX50cXC0;con8QLEKvTB.HllvX50cXC0;' \
+            'rR9ege9U0X3.HllvX50cXC0;fqqZhw9AMvn.HllvX50cXC0;C22hsuW2rE5.HllvX50cXC0;VM8F1Q8EVxB.HllvX50cXC0;s4SKEVPtp2m.HllvX50cXC0;' \
+            'uR57Bcq3Rgq.HllvX50cXC0;KjU4p8nocJQ.HllvX50cXC0;aRe93xxQav7.HllvX50cXC0;RbhomZoQGDs.HllvX50cXC0;HzqYEXs8hoO.HllvX50cXC0;' \
+            'UKUOkTXaoz6.HllvX50cXC0;SdxjNoHJO7z.HllvX50cXC0;LjiN9Kh17Bj.HllvX50cXC0;FOp1pCnNuBo.HllvX50cXC0;JFvlTEuknXq.HllvX50cXC0;' \
+            'W0lTMtPnlip.HllvX50cXC0;o7TozpqU8FT.HllvX50cXC0;yj4fJbzFrfg.HllvX50cXC0;dlinqsDHurO.HllvX50cXC0;JCrwCxh05iE.HllvX50cXC0;' \
+            'MemsRPHqriD.HllvX50cXC0;wjtsNUXEZmA.HllvX50cXC0;X3pqi7fAvgs.HllvX50cXC0;qO7NEsYVVXN.HllvX50cXC0;w8oLlRxIzST.HllvX50cXC0;' \
+            'ETzoIk2kLNK.HllvX50cXC0;R5tq2LHUK6X.HllvX50cXC0;vFCUplW58Dq.HllvX50cXC0;x7dHhPJWJPe.HllvX50cXC0;K10M0TiP5Id.HllvX50cXC0;' \
+            'vmzqxcCgqPd.HllvX50cXC0;aGhDRO2S4Lu.HllvX50cXC0;Ti6DZBxiGsG.HllvX50cXC0;Vid4sMI2rtf.HllvX50cXC0;TU2VGO7AnYK.HllvX50cXC0;' \
+            'GYeuH3xRLlD.HllvX50cXC0;HcMZhdKHITQ.HllvX50cXC0;xwCjzKpZEMe.HllvX50cXC0;MPwkNd0OtI2.ssMY53iFjYm;MPwkNd0OtI2.sLKRSW7xmwp;' \
+            'MPwkNd0OtI2.sJUGNYho7Ey;MPwkNd0OtI2.bJmK5mlfvQk;MPwkNd0OtI2.RmWCNbUlKNT;MPwkNd0OtI2.iEgy3xKqVi5;MPwkNd0OtI2.SiFHV5KVTgY;' \
+            'MPwkNd0OtI2.SOw3NHN47G7;MPwkNd0OtI2.r8hBd63qzn4;AhMpu40ZhnW.ssMY53iFjYm;AhMpu40ZhnW.sLKRSW7xmwp;AhMpu40ZhnW.sJUGNYho7Ey;' \
+            'AhMpu40ZhnW.bJmK5mlfvQk;AhMpu40ZhnW.RmWCNbUlKNT;AhMpu40ZhnW.iEgy3xKqVi5;AhMpu40ZhnW.SiFHV5KVTgY;AhMpu40ZhnW.SOw3NHN47G7;' \
+            'AhMpu40ZhnW.r8hBd63qzn4;q8mm20cJoYs.ssMY53iFjYm;q8mm20cJoYs.sLKRSW7xmwp;q8mm20cJoYs.sJUGNYho7Ey;q8mm20cJoYs.bJmK5mlfvQk;' \
+            'q8mm20cJoYs.RmWCNbUlKNT;q8mm20cJoYs.iEgy3xKqVi5;q8mm20cJoYs.SiFHV5KVTgY;q8mm20cJoYs.SOw3NHN47G7;q8mm20cJoYs.r8hBd63qzn4;' \
+            'ES8fQnz9u4A.HllvX50cXC0;JdwU3qMoYxO.HllvX50cXC0;SBmI91hjx3T.ssMY53iFjYm;SBmI91hjx3T.sLKRSW7xmwp;SBmI91hjx3T.sJUGNYho7Ey;' \
+            'SBmI91hjx3T.bJmK5mlfvQk;SBmI91hjx3T.RmWCNbUlKNT;SBmI91hjx3T.iEgy3xKqVi5;SBmI91hjx3T.SiFHV5KVTgY;SBmI91hjx3T.SOw3NHN47G7;' \
+            'SBmI91hjx3T.r8hBd63qzn4;Ebrx1HB3nkN.HllvX50cXC0;kqnpnHrcTcg.ssMY53iFjYm;kqnpnHrcTcg.sLKRSW7xmwp;kqnpnHrcTcg.sJUGNYho7Ey;' \
+            'kqnpnHrcTcg.bJmK5mlfvQk;kqnpnHrcTcg.RmWCNbUlKNT;kqnpnHrcTcg.iEgy3xKqVi5;kqnpnHrcTcg.SiFHV5KVTgY;kqnpnHrcTcg.SOw3NHN47G7;' \
+            'kqnpnHrcTcg.r8hBd63qzn4;q534i5qtxG2.HllvX50cXC0;ofjriq3zC1Y.HllvX50cXC0;UTKJklNQim3.HllvX50cXC0;ygD0dPHpavK.HllvX50cXC0' \
+            '&filter=ou:YIA7WLCOZd4&displayProperty=NAME'
 AUTH = requests.auth.HTTPBasicAuth(USERNAME, PASSWORD)
 FILE_NAME = 'data.csv'
 
@@ -55,18 +86,21 @@ def create_csv(filename):
     with open(filename, 'w') as f:
         writer = csv.writer(f)
         writer.writerow(
-            ['dataelementid', 'period', 'value','storedby']
+            ['dataelementid', 'categoryoption','period', 'value','storedby']
         )
 
 
 def create_array(data):
     storedby = 'fegati'
     for dataitems in data:
-        dataelement = dataitems[0];
+        dataelement_categoryoption = dataitems[0];
+        element_cat = dataelement_categoryoption.split('.')
+        dataelement = element_cat[0]
+        categoryoption = element_cat[1]
         period = dataitems[1]
         value = dataitems[2]
 
-        add_to_csv([dataelement,period,value,storedby])
+        add_to_csv([dataelement,categoryoption,period,value,storedby])
 
 
 
