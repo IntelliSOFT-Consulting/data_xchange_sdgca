@@ -93,12 +93,15 @@ def create_csv(filename):
 def create_array(data):
     storedby = 'fegati'
     for dataitems in data:
-        dataelement_categoryoption = dataitems[0];
+        dataelement_categoryoption = dataitems[0]
         element_cat = dataelement_categoryoption.split('.')
         dataelement = element_cat[0]
         categoryoption = element_cat[1]
         period = dataitems[1]
-        value = dataitems[2]
+        if (".0" in dataitems[2]):
+            value = int(float(dataitems[2]))
+        else:
+            value = float(dataitems[2])
 
         add_to_csv([dataelement,categoryoption,period,value,storedby])
 
