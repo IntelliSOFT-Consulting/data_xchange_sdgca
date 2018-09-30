@@ -86,7 +86,7 @@ def create_csv(filename):
     with open(filename, 'w') as f:
         writer = csv.writer(f)
         writer.writerow(
-            ['dataelement', 'period', 'orgunit', 'catoptcombo', 'attroptcombo' 'value','storedby']
+            ['dataelement', 'period', 'orgunit', 'catoptcombo', 'attroptcombo', 'value','storedby']
         )
 
 
