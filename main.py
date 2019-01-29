@@ -8,85 +8,35 @@ import csv
 
 import requests
 
-
 USERNAME = 'fegati'
 PASSWORD = 'Sdgca@2018'
-FETCH_URL = 'https://test.sdgca.intellisoftkenya.com/nationalmrs/api/29/analytics.json?dimension=pe:2015&dimension=dx:LGR9NIOhJZN.HllvX50cXC0;' \
-            'doGQYyiL5Xc.HllvX50cXC0;VGcl0oGA3gQ.HllvX50cXC0;wgG0LeHPhme.HllvX50cXC0;UYfKX2Zko4k.HllvX50cXC0;lAJhTUbm4uq.HllvX50cXC0;' \
-            'H45l65Grp8h.HllvX50cXC0;LmtfIaGo0ze.HllvX50cXC0;KBuWLWOnaDX.HllvX50cXC0;fT9njJ08ONo.HllvX50cXC0;DYoyQl1eYOo.HllvX50cXC0;' \
-            'ixPGl1NVAjc.HllvX50cXC0;M7BMX4KeItQ.HllvX50cXC0;QF7w41u2GJH.HllvX50cXC0;OI8W4V2UeCw.HllvX50cXC0;nhBNZvraNtR.HllvX50cXC0;' \
-            'J6mhwkHXYRX.HllvX50cXC0;cgp29l4lidD.HllvX50cXC0;APPRHhMypTn.HllvX50cXC0;Et4Jnj4Y0bx.HllvX50cXC0;jcWXxKiW0i4.HllvX50cXC0;' \
-            'DC82t4TqvSt.HllvX50cXC0;lWs0BXDInz8.HllvX50cXC0;lsR89zdhpE7.HllvX50cXC0;ynSFHBIYfAc.HllvX50cXC0;KI4KGmBjeK5.HllvX50cXC0;' \
-            'zLZFU6m9B0O.HllvX50cXC0;fg10UJuPwYW.HllvX50cXC0;V9ahdUlT8ak.HllvX50cXC0;uM0hXE3jV3V.HllvX50cXC0;f3HhCfTEkZh.HllvX50cXC0;' \
-            'cx5zefVyAZC.HllvX50cXC0;Yo5wu8Xtiss.HllvX50cXC0;h529oFxp0fz.HllvX50cXC0;XbyQiRu1Ut1.HllvX50cXC0;jvfrnV2dyE6.HllvX50cXC0;' \
-            'huEkNaUiiZS.ssMY53iFjYm;huEkNaUiiZS.sLKRSW7xmwp;huEkNaUiiZS.sJUGNYho7Ey;huEkNaUiiZS.bJmK5mlfvQk;huEkNaUiiZS.RmWCNbUlKNT;' \
-            'huEkNaUiiZS.iEgy3xKqVi5;huEkNaUiiZS.SiFHV5KVTgY;huEkNaUiiZS.SOw3NHN47G7;huEkNaUiiZS.r8hBd63qzn4;KaRLMIg67ut.ssMY53iFjYm;' \
-            'KaRLMIg67ut.sLKRSW7xmwp;KaRLMIg67ut.sJUGNYho7Ey;KaRLMIg67ut.bJmK5mlfvQk;KaRLMIg67ut.RmWCNbUlKNT;KaRLMIg67ut.iEgy3xKqVi5;' \
-            'KaRLMIg67ut.SiFHV5KVTgY;KaRLMIg67ut.SOw3NHN47G7;KaRLMIg67ut.r8hBd63qzn4;EsW7jXi2mNg.HllvX50cXC0;LXBAztHs8GC.HllvX50cXC0;' \
-            'jtMK6hK3BnU.HllvX50cXC0;IGpQdzyB9JL.HllvX50cXC0;umJef6viQsI.HllvX50cXC0;NO17dTDKMMl.HllvX50cXC0;piR74Xk7nQY.HllvX50cXC0;' \
-            'NtkFpqrWUUz.HllvX50cXC0;tFC6V5nnzan.HllvX50cXC0;lzvT5c6XGaS.HllvX50cXC0;fGrYKYgsz56.HllvX50cXC0;cIiBVaVnyqb.HllvX50cXC0;' \
-            'bkSUYeNHvXG.HllvX50cXC0;OnvFPyD5WQ4.HllvX50cXC0;bKVIl5DFvYH.HllvX50cXC0;j4w8plpRTl9.HllvX50cXC0;b2JULRR29Vr.HllvX50cXC0;' \
-            'OqkExkc8YQg.HllvX50cXC0;WNbwHJdi9fj.HllvX50cXC0;QIdqsSCdmSP.HllvX50cXC0;zrYzxKPMCUf.HllvX50cXC0;Uqj4TFaAjVJ.HllvX50cXC0;' \
-            'NJiuosvvTqR.HllvX50cXC0;R2mSVduTEHb.HllvX50cXC0;IifjkFPTvF9.HllvX50cXC0;upip89aqbWr.HllvX50cXC0;L4YmBBm4RmP.HllvX50cXC0;' \
-            'iXJmz0gayg2.HllvX50cXC0;wD1WS24kqQR.ssMY53iFjYm;wD1WS24kqQR.sLKRSW7xmwp;wD1WS24kqQR.sJUGNYho7Ey;wD1WS24kqQR.bJmK5mlfvQk;' \
-            'wD1WS24kqQR.RmWCNbUlKNT;wD1WS24kqQR.iEgy3xKqVi5;wD1WS24kqQR.SiFHV5KVTgY;wD1WS24kqQR.SOw3NHN47G7;wD1WS24kqQR.r8hBd63qzn4;' \
-            'TsZLukacJ6T.ssMY53iFjYm;TsZLukacJ6T.sLKRSW7xmwp;TsZLukacJ6T.sJUGNYho7Ey;TsZLukacJ6T.bJmK5mlfvQk;TsZLukacJ6T.RmWCNbUlKNT;' \
-            'TsZLukacJ6T.iEgy3xKqVi5;TsZLukacJ6T.SiFHV5KVTgY;TsZLukacJ6T.SOw3NHN47G7;TsZLukacJ6T.r8hBd63qzn4;HNUVvzz5Mcb.ssMY53iFjYm;' \
-            'HNUVvzz5Mcb.sLKRSW7xmwp;HNUVvzz5Mcb.sJUGNYho7Ey;HNUVvzz5Mcb.bJmK5mlfvQk;HNUVvzz5Mcb.RmWCNbUlKNT;HNUVvzz5Mcb.iEgy3xKqVi5;' \
-            'HNUVvzz5Mcb.SiFHV5KVTgY;HNUVvzz5Mcb.SOw3NHN47G7;HNUVvzz5Mcb.r8hBd63qzn4;mEtKA2HMRkT.ssMY53iFjYm;mEtKA2HMRkT.sLKRSW7xmwp;' \
-            'mEtKA2HMRkT.sJUGNYho7Ey;mEtKA2HMRkT.bJmK5mlfvQk;mEtKA2HMRkT.RmWCNbUlKNT;mEtKA2HMRkT.iEgy3xKqVi5;mEtKA2HMRkT.SiFHV5KVTgY;' \
-            'mEtKA2HMRkT.SOw3NHN47G7;mEtKA2HMRkT.r8hBd63qzn4;pTOpNf6zkTv.ssMY53iFjYm;pTOpNf6zkTv.sLKRSW7xmwp;pTOpNf6zkTv.sJUGNYho7Ey;' \
-            'pTOpNf6zkTv.bJmK5mlfvQk;pTOpNf6zkTv.RmWCNbUlKNT;pTOpNf6zkTv.iEgy3xKqVi5;pTOpNf6zkTv.SiFHV5KVTgY;pTOpNf6zkTv.SOw3NHN47G7;' \
-            'pTOpNf6zkTv.r8hBd63qzn4;NCsJ0u0J5kO.ssMY53iFjYm;NCsJ0u0J5kO.sLKRSW7xmwp;NCsJ0u0J5kO.sJUGNYho7Ey;NCsJ0u0J5kO.bJmK5mlfvQk;' \
-            'NCsJ0u0J5kO.RmWCNbUlKNT;NCsJ0u0J5kO.iEgy3xKqVi5;NCsJ0u0J5kO.SiFHV5KVTgY;NCsJ0u0J5kO.SOw3NHN47G7;NCsJ0u0J5kO.r8hBd63qzn4;' \
-            'pBeH3AFPieZ.HllvX50cXC0;cBaVY4cTk1A.HllvX50cXC0;nsPgvbrDPwQ.HllvX50cXC0;jHGHRAQ0RcL.HllvX50cXC0;SdGVvEDBReG.HllvX50cXC0;' \
-            'Hz6LcIaTWfY.HllvX50cXC0;CDWr02Kxj2X.HllvX50cXC0;tqDcS5WQm3T.HllvX50cXC0;JhZxmBFYmuL.HllvX50cXC0;dGsxottaM20.HllvX50cXC0;' \
-            'pH4ByZuNaRi.HllvX50cXC0;SDnpTlaTfuA.HllvX50cXC0;Bt7EwzXnP1B.HllvX50cXC0;NXhSDQe6OXB.HllvX50cXC0;KnUVvNnHny2.HllvX50cXC0;' \
-            'LgOeUwjhGva.HllvX50cXC0;OyAEqNG6RMg.HllvX50cXC0;Yk7ej3qZXDv.HllvX50cXC0;wZdc6Gvc3um.HllvX50cXC0;F2kfyiytNRy.HllvX50cXC0;' \
-            'r1tLOkgBXcw.HllvX50cXC0;pADPo7G4Q8n.HllvX50cXC0;NS7zBWqKEXq.HllvX50cXC0;Cl2zeNxNNEM.HllvX50cXC0;SJCuhkbZCqN.HllvX50cXC0;' \
-            'K35BjlZcXYV.HllvX50cXC0;mFeVazpypaZ.HllvX50cXC0;erR6FSvuScN.HllvX50cXC0;IcUjJW2C9Im.HllvX50cXC0;atbJtXLSbyf.HllvX50cXC0;' \
-            'qj15XcoUCDI.HllvX50cXC0;b1IbuE6i9Tc.HllvX50cXC0;Vak8DH4WNiD.HllvX50cXC0;DtwIkKQchib.HllvX50cXC0;HW9SvVBHjfX.HllvX50cXC0;' \
-            'Rd6xzemL4S5.HllvX50cXC0;iCihpG4jRzH.HllvX50cXC0;mH9XBhoW1Cf.HllvX50cXC0;pZWwlUZworn.HllvX50cXC0;con8QLEKvTB.HllvX50cXC0;' \
-            'rR9ege9U0X3.HllvX50cXC0;fqqZhw9AMvn.HllvX50cXC0;C22hsuW2rE5.HllvX50cXC0;VM8F1Q8EVxB.HllvX50cXC0;s4SKEVPtp2m.HllvX50cXC0;' \
-            'uR57Bcq3Rgq.HllvX50cXC0;KjU4p8nocJQ.HllvX50cXC0;aRe93xxQav7.HllvX50cXC0;RbhomZoQGDs.HllvX50cXC0;HzqYEXs8hoO.HllvX50cXC0;' \
-            'UKUOkTXaoz6.HllvX50cXC0;SdxjNoHJO7z.HllvX50cXC0;LjiN9Kh17Bj.HllvX50cXC0;FOp1pCnNuBo.HllvX50cXC0;JFvlTEuknXq.HllvX50cXC0;' \
-            'W0lTMtPnlip.HllvX50cXC0;o7TozpqU8FT.HllvX50cXC0;yj4fJbzFrfg.HllvX50cXC0;dlinqsDHurO.HllvX50cXC0;JCrwCxh05iE.HllvX50cXC0;' \
-            'MemsRPHqriD.HllvX50cXC0;wjtsNUXEZmA.HllvX50cXC0;X3pqi7fAvgs.HllvX50cXC0;qO7NEsYVVXN.HllvX50cXC0;w8oLlRxIzST.HllvX50cXC0;' \
-            'ETzoIk2kLNK.HllvX50cXC0;R5tq2LHUK6X.HllvX50cXC0;vFCUplW58Dq.HllvX50cXC0;x7dHhPJWJPe.HllvX50cXC0;K10M0TiP5Id.HllvX50cXC0;' \
-            'vmzqxcCgqPd.HllvX50cXC0;aGhDRO2S4Lu.HllvX50cXC0;Ti6DZBxiGsG.HllvX50cXC0;Vid4sMI2rtf.HllvX50cXC0;TU2VGO7AnYK.HllvX50cXC0;' \
-            'GYeuH3xRLlD.HllvX50cXC0;HcMZhdKHITQ.HllvX50cXC0;xwCjzKpZEMe.HllvX50cXC0;MPwkNd0OtI2.ssMY53iFjYm;MPwkNd0OtI2.sLKRSW7xmwp;' \
-            'MPwkNd0OtI2.sJUGNYho7Ey;MPwkNd0OtI2.bJmK5mlfvQk;MPwkNd0OtI2.RmWCNbUlKNT;MPwkNd0OtI2.iEgy3xKqVi5;MPwkNd0OtI2.SiFHV5KVTgY;' \
-            'MPwkNd0OtI2.SOw3NHN47G7;MPwkNd0OtI2.r8hBd63qzn4;AhMpu40ZhnW.ssMY53iFjYm;AhMpu40ZhnW.sLKRSW7xmwp;AhMpu40ZhnW.sJUGNYho7Ey;' \
-            'AhMpu40ZhnW.bJmK5mlfvQk;AhMpu40ZhnW.RmWCNbUlKNT;AhMpu40ZhnW.iEgy3xKqVi5;AhMpu40ZhnW.SiFHV5KVTgY;AhMpu40ZhnW.SOw3NHN47G7;' \
-            'AhMpu40ZhnW.r8hBd63qzn4;q8mm20cJoYs.ssMY53iFjYm;q8mm20cJoYs.sLKRSW7xmwp;q8mm20cJoYs.sJUGNYho7Ey;q8mm20cJoYs.bJmK5mlfvQk;' \
-            'q8mm20cJoYs.RmWCNbUlKNT;q8mm20cJoYs.iEgy3xKqVi5;q8mm20cJoYs.SiFHV5KVTgY;q8mm20cJoYs.SOw3NHN47G7;q8mm20cJoYs.r8hBd63qzn4;' \
-            'ES8fQnz9u4A.HllvX50cXC0;JdwU3qMoYxO.HllvX50cXC0;SBmI91hjx3T.ssMY53iFjYm;SBmI91hjx3T.sLKRSW7xmwp;SBmI91hjx3T.sJUGNYho7Ey;' \
-            'SBmI91hjx3T.bJmK5mlfvQk;SBmI91hjx3T.RmWCNbUlKNT;SBmI91hjx3T.iEgy3xKqVi5;SBmI91hjx3T.SiFHV5KVTgY;SBmI91hjx3T.SOw3NHN47G7;' \
-            'SBmI91hjx3T.r8hBd63qzn4;Ebrx1HB3nkN.HllvX50cXC0;kqnpnHrcTcg.ssMY53iFjYm;kqnpnHrcTcg.sLKRSW7xmwp;kqnpnHrcTcg.sJUGNYho7Ey;' \
-            'kqnpnHrcTcg.bJmK5mlfvQk;kqnpnHrcTcg.RmWCNbUlKNT;kqnpnHrcTcg.iEgy3xKqVi5;kqnpnHrcTcg.SiFHV5KVTgY;kqnpnHrcTcg.SOw3NHN47G7;' \
-            'kqnpnHrcTcg.r8hBd63qzn4;q534i5qtxG2.HllvX50cXC0;ofjriq3zC1Y.HllvX50cXC0;UTKJklNQim3.HllvX50cXC0;ygD0dPHpavK.HllvX50cXC0' \
-            '&filter=ou:YIA7WLCOZd4&displayProperty=NAME'
+indicators_a = 'OI8W4V2UeCw.HllvX50cXC0;nhBNZvraNtR.HllvX50cXC0;J6mhwkHXYRX.HllvX50cXC0;cgp29l4lidD.HllvX50cXC0;APPRHhMypTn.HllvX50cXC0;Et4Jnj4Y0bx.HllvX50cXC0;jcWXxKiW0i4.HllvX50cXC0;DC82t4TqvSt.HllvX50cXC0;lWs0BXDInz8.HllvX50cXC0;lsR89zdhpE7.HllvX50cXC0;ynSFHBIYfAc.HllvX50cXC0;KI4KGmBjeK5.HllvX50cXC0;zLZFU6m9B0O.HllvX50cXC0;fg10UJuPwYW.HllvX50cXC0;V9ahdUlT8ak.HllvX50cXC0;uM0hXE3jV3V.HllvX50cXC0;f3HhCfTEkZh.HllvX50cXC0;cx5zefVyAZC.HllvX50cXC0;Yo5wu8Xtiss.HllvX50cXC0;h529oFxp0fz.HllvX50cXC0;XbyQiRu1Ut1.HllvX50cXC0;jvfrnV2dyE6.HllvX50cXC0;huEkNaUiiZS.ssMY53iFjYm;huEkNaUiiZS.sLKRSW7xmwp;huEkNaUiiZS.sJUGNYho7Ey;huEkNaUiiZS.bJmK5mlfvQk;huEkNaUiiZS.RmWCNbUlKNT;huEkNaUiiZS.iEgy3xKqVi5;huEkNaUiiZS.SiFHV5KVTgY;huEkNaUiiZS.SOw3NHN47G7;huEkNaUiiZS.r8hBd63qzn4;KaRLMIg67ut.ssMY53iFjYm;KaRLMIg67ut.sLKRSW7xmwp;KaRLMIg67ut.sJUGNYho7Ey;KaRLMIg67ut.bJmK5mlfvQk;KaRLMIg67ut.RmWCNbUlKNT;KaRLMIg67ut.iEgy3xKqVi5;KaRLMIg67ut.SiFHV5KVTgY;KaRLMIg67ut.SOw3NHN47G7;KaRLMIg67ut.r8hBd63qzn4;EsW7jXi2mNg.HllvX50cXC0;LXBAztHs8GC.HllvX50cXC0;jtMK6hK3BnU.HllvX50cXC0;IGpQdzyB9JL.HllvX50cXC0;r1De8ZJQ8lV.HllvX50cXC0;XpY3cvVILxQ.HllvX50cXC0;i3XdeahLux9.HllvX50cXC0;umJef6viQsI.HllvX50cXC0;NO17dTDKMMl.HllvX50cXC0;piR74Xk7nQY.HllvX50cXC0;NtkFpqrWUUz.HllvX50cXC0;tFC6V5nnzan.HllvX50cXC0;lzvT5c6XGaS.HllvX50cXC0;fGrYKYgsz56.HllvX50cXC0;cIiBVaVnyqb.HllvX50cXC0;bkSUYeNHvXG.HllvX50cXC0;OnvFPyD5WQ4.HllvX50cXC0;bKVIl5DFvYH.HllvX50cXC0;j4w8plpRTl9.HllvX50cXC0;b2JULRR29Vr.HllvX50cXC0;OqkExkc8YQg.HllvX50cXC0;WNbwHJdi9fj.HllvX50cXC0;QIdqsSCdmSP.HllvX50cXC0;zrYzxKPMCUf.HllvX50cXC0;Uqj4TFaAjVJ.HllvX50cXC0;NJiuosvvTqR.HllvX50cXC0;R2mSVduTEHb.HllvX50cXC0;IifjkFPTvF9.HllvX50cXC0;upip89aqbWr.HllvX50cXC0;L4YmBBm4RmP.HllvX50cXC0;iXJmz0gayg2.HllvX50cXC0;wD1WS24kqQR.ssMY53iFjYm;wD1WS24kqQR.sLKRSW7xmwp;wD1WS24kqQR.sJUGNYho7Ey;wD1WS24kqQR.bJmK5mlfvQk;wD1WS24kqQR.RmWCNbUlKNT;wD1WS24kqQR.iEgy3xKqVi5;wD1WS24kqQR.SiFHV5KVTgY;wD1WS24kqQR.SOw3NHN47G7;wD1WS24kqQR.r8hBd63qzn4;TsZLukacJ6T.ssMY53iFjYm;TsZLukacJ6T.sLKRSW7xmwp;TsZLukacJ6T.sJUGNYho7Ey;TsZLukacJ6T.bJmK5mlfvQk;TsZLukacJ6T.RmWCNbUlKNT;TsZLukacJ6T.iEgy3xKqVi5;TsZLukacJ6T.SiFHV5KVTgY;TsZLukacJ6T.SOw3NHN47G7;TsZLukacJ6T.r8hBd63qzn4;HNUVvzz5Mcb.ssMY53iFjYm;HNUVvzz5Mcb.sLKRSW7xmwp;HNUVvzz5Mcb.sJUGNYho7Ey;HNUVvzz5Mcb.bJmK5mlfvQk;HNUVvzz5Mcb.RmWCNbUlKNT;HNUVvzz5Mcb.iEgy3xKqVi5;HNUVvzz5Mcb.SiFHV5KVTgY;HNUVvzz5Mcb.SOw3NHN47G7;HNUVvzz5Mcb.r8hBd63qzn4;mEtKA2HMRkT.ssMY53iFjYm;mEtKA2HMRkT.sLKRSW7xmwp;mEtKA2HMRkT.sJUGNYho7Ey;mEtKA2HMRkT.bJmK5mlfvQk;mEtKA2HMRkT.RmWCNbUlKNT;mEtKA2HMRkT.iEgy3xKqVi5;mEtKA2HMRkT.SiFHV5KVTgY;mEtKA2HMRkT.SOw3NHN47G7;mEtKA2HMRkT.r8hBd63qzn4;pTOpNf6zkTv.ssMY53iFjYm;pTOpNf6zkTv.sLKRSW7xmwp;pTOpNf6zkTv.sJUGNYho7Ey;pTOpNf6zkTv.bJmK5mlfvQk;pTOpNf6zkTv.RmWCNbUlKNT;pTOpNf6zkTv.iEgy3xKqVi5;pTOpNf6zkTv.SiFHV5KVTgY;pTOpNf6zkTv.SOw3NHN47G7;pTOpNf6zkTv.r8hBd63qzn4;NCsJ0u0J5kO.ssMY53iFjYm;NCsJ0u0J5kO.sLKRSW7xmwp;NCsJ0u0J5kO.sJUGNYho7Ey;NCsJ0u0J5kO.bJmK5mlfvQk;NCsJ0u0J5kO.RmWCNbUlKNT;NCsJ0u0J5kO.iEgy3xKqVi5;NCsJ0u0J5kO.SiFHV5KVTgY;NCsJ0u0J5kO.SOw3NHN47G7;NCsJ0u0J5kO.r8hBd63qzn4;pBeH3AFPieZ.HllvX50cXC0;LgOeUwjhGva.HllvX50cXC0;JaCkmheNO9p.HllvX50cXC0;cBaVY4cTk1A.HllvX50cXC0;nsPgvbrDPwQ.HllvX50cXC0;jHGHRAQ0RcL.HllvX50cXC0;SdGVvEDBReG.HllvX50cXC0;Hz6LcIaTWfY.HllvX50cXC0;CDWr02Kxj2X.HllvX50cXC0;tqDcS5WQm3T.HllvX50cXC0;JhZxmBFYmuL.HllvX50cXC0;bWLtB5B73Eh.HllvX50cXC0;dGsxottaM20.HllvX50cXC0;pH4ByZuNaRi.HllvX50cXC0;SDnpTlaTfuA.HllvX50cXC0;Bt7EwzXnP1B.HllvX50cXC0;NXhSDQe6OXB.HllvX50cXC0;KnUVvNnHny2.HllvX50cXC0;CZozIhs3oKt.HllvX50cXC0;OyAEqNG6RMg.HllvX50cXC0;KjU4p8nocJQ.HllvX50cXC0;M0V0lnx10d4.HllvX50cXC0;ZOPSuVDHGc7.HllvX50cXC0;yntGu1ghoRH.HllvX50cXC0;D4oFW40gvT4.HllvX50cXC0;Sc0fSbRIgAd.HllvX50cXC0;mtasarJT0Lu.HllvX50cXC0;tugJ7nwfL6c.HllvX50cXC0;G7cOxA0vVFP.HllvX50cXC0;MKn1soEZT8q.HllvX50cXC0;Yk7ej3qZXDv.HllvX50cXC0;wZdc6Gvc3um.HllvX50cXC0;F2kfyiytNRy.HllvX50cXC0;r1tLOkgBXcw.HllvX50cXC0;pADPo7G4Q8n.HllvX50cXC0;NS7zBWqKEXq.HllvX50cXC0;Cl2zeNxNNEM.HllvX50cXC0;SJCuhkbZCqN.HllvX50cXC0;K35BjlZcXYV.HllvX50cXC0;mFeVazpypaZ.HllvX50cXC0;erR6FSvuScN.HllvX50cXC0;IcUjJW2C9Im.HllvX50cXC0;atbJtXLSbyf.HllvX50cXC0;qj15XcoUCDI.HllvX50cXC0;b1IbuE6i9Tc.HllvX50cXC0;Vak8DH4WNiD.HllvX50cXC0;DtwIkKQchib.HllvX50cXC0;HW9SvVBHjfX.HllvX50cXC0;Rd6xzemL4S5.HllvX50cXC0;iCihpG4jRzH.HllvX50cXC0;mH9XBhoW1Cf.HllvX50cXC0;pZWwlUZworn.HllvX50cXC0;con8QLEKvTB.HllvX50cXC0;rR9ege9U0X3.HllvX50cXC0;fqqZhw9AMvn.HllvX50cXC0;C22hsuW2rE5.HllvX50cXC0;VM8F1Q8EVxB.HllvX50cXC0;s4SKEVPtp2m.HllvX50cXC0;uR57Bcq3Rgq.HllvX50cXC0;aRe93xxQav7.HllvX50cXC0;RbhomZoQGDs.HllvX50cXC0;HzqYEXs8hoO.HllvX50cXC0;UKUOkTXaoz6.HllvX50cXC0;SdxjNoHJO7z.HllvX50cXC0;LjiN9Kh17Bj.HllvX50cXC0;FOp1pCnNuBo.HllvX50cXC0;JFvlTEuknXq.HllvX50cXC0;W0lTMtPnlip.HllvX50cXC0;o7TozpqU8FT.HllvX50cXC0;yj4fJbzFrfg.HllvX50cXC0;dlinqsDHurO.HllvX50cXC0;JCrwCxh05iE.HllvX50cXC0;MemsRPHqriD.HllvX50cXC0;wjtsNUXEZmA.HllvX50cXC0;X3pqi7fAvgs.HllvX50cXC0'
+indicators_b = 'qO7NEsYVVXN.HllvX50cXC0;w8oLlRxIzST.HllvX50cXC0;ETzoIk2kLNK.HllvX50cXC0;R5tq2LHUK6X.HllvX50cXC0;vFCUplW58Dq.HllvX50cXC0;x7dHhPJWJPe.HllvX50cXC0;K10M0TiP5Id.HllvX50cXC0;vmzqxcCgqPd.HllvX50cXC0;aGhDRO2S4Lu.HllvX50cXC0;Ti6DZBxiGsG.HllvX50cXC0;Vid4sMI2rtf.HllvX50cXC0;TU2VGO7AnYK.HllvX50cXC0;GYeuH3xRLlD.HllvX50cXC0;HcMZhdKHITQ.HllvX50cXC0;xwCjzKpZEMe.HllvX50cXC0;MPwkNd0OtI2.ssMY53iFjYm;MPwkNd0OtI2.sLKRSW7xmwp;MPwkNd0OtI2.sJUGNYho7Ey;MPwkNd0OtI2.bJmK5mlfvQk;MPwkNd0OtI2.RmWCNbUlKNT;MPwkNd0OtI2.iEgy3xKqVi5;MPwkNd0OtI2.SiFHV5KVTgY;MPwkNd0OtI2.SOw3NHN47G7;MPwkNd0OtI2.r8hBd63qzn4;AhMpu40ZhnW.ssMY53iFjYm;AhMpu40ZhnW.sLKRSW7xmwp;AhMpu40ZhnW.sJUGNYho7Ey;AhMpu40ZhnW.bJmK5mlfvQk;AhMpu40ZhnW.RmWCNbUlKNT;AhMpu40ZhnW.iEgy3xKqVi5;AhMpu40ZhnW.SiFHV5KVTgY;AhMpu40ZhnW.SOw3NHN47G7;AhMpu40ZhnW.r8hBd63qzn4;q8mm20cJoYs.ssMY53iFjYm;q8mm20cJoYs.sLKRSW7xmwp;q8mm20cJoYs.sJUGNYho7Ey;q8mm20cJoYs.bJmK5mlfvQk;q8mm20cJoYs.RmWCNbUlKNT;q8mm20cJoYs.iEgy3xKqVi5;q8mm20cJoYs.SiFHV5KVTgY;q8mm20cJoYs.SOw3NHN47G7;q8mm20cJoYs.r8hBd63qzn4;ES8fQnz9u4A.HllvX50cXC0;JdwU3qMoYxO.HllvX50cXC0;SBmI91hjx3T.ssMY53iFjYm;SBmI91hjx3T.sLKRSW7xmwp;SBmI91hjx3T.sJUGNYho7Ey;SBmI91hjx3T.bJmK5mlfvQk;SBmI91hjx3T.RmWCNbUlKNT;SBmI91hjx3T.iEgy3xKqVi5;SBmI91hjx3T.SiFHV5KVTgY;SBmI91hjx3T.SOw3NHN47G7;SBmI91hjx3T.r8hBd63qzn4;EpOHcAxLP0E.ssMY53iFjYm;EpOHcAxLP0E.sLKRSW7xmwp;EpOHcAxLP0E.sJUGNYho7Ey;EpOHcAxLP0E.bJmK5mlfvQk;EpOHcAxLP0E.RmWCNbUlKNT;EpOHcAxLP0E.iEgy3xKqVi5;EpOHcAxLP0E.SiFHV5KVTgY;EpOHcAxLP0E.SOw3NHN47G7;EpOHcAxLP0E.r8hBd63qzn4;Ebrx1HB3nkN.HllvX50cXC0;kqnpnHrcTcg.ssMY53iFjYm;kqnpnHrcTcg.sLKRSW7xmwp;kqnpnHrcTcg.sJUGNYho7Ey;kqnpnHrcTcg.bJmK5mlfvQk;kqnpnHrcTcg.RmWCNbUlKNT;kqnpnHrcTcg.iEgy3xKqVi5;kqnpnHrcTcg.SiFHV5KVTgY;kqnpnHrcTcg.SOw3NHN47G7;kqnpnHrcTcg.r8hBd63qzn4;q534i5qtxG2.HllvX50cXC0;ofjriq3zC1Y.HllvX50cXC0;UTKJklNQim3.HllvX50cXC0;ygD0dPHpavK.HllvX50cXC0;rW9QXpbg4Xd.HllvX50cXC0;cZ1kDXBQ7C2.HllvX50cXC0;jCcnjrZJy12.HllvX50cXC0;nMmhSIi5hLE.HllvX50cXC0;UkPFxKSr0wb.HllvX50cXC0;ukncn1Hlzdf.HllvX50cXC0;goDhooTdnpA.HllvX50cXC0;XgtR08R2tWT.HllvX50cXC0;aXgQjzyBOHY.HllvX50cXC0;N6fWQSZhzXS.HllvX50cXC0;RL5Cd2V59j9.ssMY53iFjYm;RL5Cd2V59j9.sLKRSW7xmwp;RL5Cd2V59j9.sJUGNYho7Ey;RL5Cd2V59j9.bJmK5mlfvQk;RL5Cd2V59j9.RmWCNbUlKNT;RL5Cd2V59j9.iEgy3xKqVi5;RL5Cd2V59j9.SiFHV5KVTgY;RL5Cd2V59j9.SOw3NHN47G7;RL5Cd2V59j9.r8hBd63qzn4;DGX5LV26AD1.HllvX50cXC0;QUGGAviJi4F.HllvX50cXC0;EvxREEMoa5E.HllvX50cXC0;OEpkeiWuqX0.HllvX50cXC0;iIHXuIzCh9H.HllvX50cXC0;EUVnujhYWcR.HllvX50cXC0;kCRn8WKklIR.ssMY53iFjYm;kCRn8WKklIR.sLKRSW7xmwp;kCRn8WKklIR.sJUGNYho7Ey;kCRn8WKklIR.bJmK5mlfvQk;kCRn8WKklIR.RmWCNbUlKNT;kCRn8WKklIR.iEgy3xKqVi5;kCRn8WKklIR.SiFHV5KVTgY;kCRn8WKklIR.SOw3NHN47G7;kCRn8WKklIR.r8hBd63qzn4;zT3hIUDKfgl.HllvX50cXC0;C0ScMXqXY02.HllvX50cXC0;WQGDscmrGgi.HllvX50cXC0;oqhLWFqRC14.HllvX50cXC0;ReqlS094zxC.HllvX50cXC0;rZQRXUXUPaL.HllvX50cXC0;NlcSFvZFfjA.HllvX50cXC0;ACLqta1bLlC.HllvX50cXC0;E8M2iiHaKLh.HllvX50cXC0;tl6Qlw1d0FB.HllvX50cXC0;j6NGNhKM1jz.HllvX50cXC0;MpwayQltPTy.HllvX50cXC0;Gtrz0rkNIH9.ssMY53iFjYm;Gtrz0rkNIH9.sLKRSW7xmwp;Gtrz0rkNIH9.sJUGNYho7Ey;Gtrz0rkNIH9.bJmK5mlfvQk;Gtrz0rkNIH9.RmWCNbUlKNT;Gtrz0rkNIH9.iEgy3xKqVi5;Gtrz0rkNIH9.SiFHV5KVTgY;Gtrz0rkNIH9.SOw3NHN47G7;Gtrz0rkNIH9.r8hBd63qzn4;qVkMsM6gB9n.HllvX50cXC0;dX49L52V9WM.HllvX50cXC0;xYjKHmNPMKu.HllvX50cXC0;KltV9viaHHG.HllvX50cXC0;bKFp3z7BOK7.ssMY53iFjYm;bKFp3z7BOK7.sLKRSW7xmwp;bKFp3z7BOK7.sJUGNYho7Ey;bKFp3z7BOK7.bJmK5mlfvQk;bKFp3z7BOK7.RmWCNbUlKNT;bKFp3z7BOK7.iEgy3xKqVi5;bKFp3z7BOK7.SiFHV5KVTgY;bKFp3z7BOK7.SOw3NHN47G7;bKFp3z7BOK7.r8hBd63qzn4;ePlRlJHXijB.HllvX50cXC0;isVafLZvrzO.HllvX50cXC0;dAbyaqzPFQu.HllvX50cXC0;nQDrXyuARRa.HllvX50cXC0;RiN9u844TAI.HllvX50cXC0;NehgnuC4gS7.HllvX50cXC0;wEolHaaEC5D.HllvX50cXC0;lVztyk5abZZ.HllvX50cXC0;R64mkjYs7B7.HllvX50cXC0;Djjg8FIvCKp.HllvX50cXC0;tvhODPVwvvV.HllvX50cXC0;U34Rhq28dIv.HllvX50cXC0;sUHIdkbigKw.HllvX50cXC0;o8atQWjlEQ5.HllvX50cXC0;D1xcT46JCVw.HllvX50cXC0;NqFPQJkDE9I.HllvX50cXC0;oXdk88u7wtf.HllvX50cXC0;WCjZOCH6jPx.HllvX50cXC0;CXnbOm2RZE1.HllvX50cXC0;y39BBEAsVXl.HllvX50cXC0;HrnVSfYnHma.HllvX50cXC0;rrjMth4f11Z.HllvX50cXC0;fcy9TKaPBS0.HllvX50cXC0;TQGrrzcVi9a.HllvX50cXC0;YKfRIUfnqaw.HllvX50cXC0;grluc6vgaSM.HllvX50cXC0;F8JgS20k6r7.HllvX50cXC0;LGR9NIOhJZN.HllvX50cXC0;doGQYyiL5Xc.HllvX50cXC0;VGcl0oGA3gQ.HllvX50cXC0;wgG0LeHPhme.HllvX50cXC0;UYfKX2Zko4k.HllvX50cXC0;H45l65Grp8h.HllvX50cXC0;M7BMX4KeItQ.HllvX50cXC0;DC82t4TqvSt.HllvX50cXC0;lsR89zdhpE7.HllvX50cXC0;Yo5wu8Xtiss.HllvX50cXC0;w0tytyY7kos.HllvX50cXC0;njgxJV082qP.HllvX50cXC0;T95waB5Vx2S.HllvX50cXC0;L32d5C6AIqv.HllvX50cXC0;TDacBLZz715.HllvX50cXC0;qnlmEhaz3mm.HllvX50cXC0;ab5HIxZDpT6.HllvX50cXC0;EsP5GPtG6Nq.HllvX50cXC0;q2e5Wwjb7Ut.ssMY53iFjYm;q2e5Wwjb7Ut.sLKRSW7xmwp;q2e5Wwjb7Ut.sJUGNYho7Ey;q2e5Wwjb7Ut.bJmK5mlfvQk;q2e5Wwjb7Ut.RmWCNbUlKNT;q2e5Wwjb7Ut.iEgy3xKqVi5;q2e5Wwjb7Ut.SiFHV5KVTgY;q2e5Wwjb7Ut.SOw3NHN47G7;q2e5Wwjb7Ut.r8hBd63qzn4;Zvs9yZWgT9C.HllvX50cXC0;w5VGTETV8sF.HllvX50cXC0'
+indicators_c = 'bVLdO86vavP.HllvX50cXC0;xd1rD8igIDV.HllvX50cXC0;eQYU5svjuDv.HllvX50cXC0;ZaavkLrmpIh.HllvX50cXC0;NvMedxX5rd6.HllvX50cXC0;yTZaIg793qr.HllvX50cXC0;wc7kssp1RVi.HllvX50cXC0;MMgShX5U862.HllvX50cXC0;ZPFtZbsXQIT.HllvX50cXC0;dJC0iHI9bWC.HllvX50cXC0;w3DsvXrAl1i.HllvX50cXC0;pzjjV7A9iUm.HllvX50cXC0;VuxFvcDYY9Z.HllvX50cXC0;EIxxvp8CHka.ssMY53iFjYm;EIxxvp8CHka.sLKRSW7xmwp;EIxxvp8CHka.sJUGNYho7Ey;EIxxvp8CHka.bJmK5mlfvQk;EIxxvp8CHka.RmWCNbUlKNT;EIxxvp8CHka.iEgy3xKqVi5;EIxxvp8CHka.SiFHV5KVTgY;EIxxvp8CHka.SOw3NHN47G7;EIxxvp8CHka.r8hBd63qzn4;NAvcDWqehR0.ssMY53iFjYm;NAvcDWqehR0.sLKRSW7xmwp;NAvcDWqehR0.sJUGNYho7Ey;NAvcDWqehR0.bJmK5mlfvQk;NAvcDWqehR0.RmWCNbUlKNT;NAvcDWqehR0.iEgy3xKqVi5;NAvcDWqehR0.SiFHV5KVTgY;NAvcDWqehR0.SOw3NHN47G7;NAvcDWqehR0.r8hBd63qzn4;gAnNDrg3dLo.HllvX50cXC0;cJlKjoYQYcK.ssMY53iFjYm;cJlKjoYQYcK.sLKRSW7xmwp;cJlKjoYQYcK.sJUGNYho7Ey;cJlKjoYQYcK.bJmK5mlfvQk;cJlKjoYQYcK.RmWCNbUlKNT;cJlKjoYQYcK.iEgy3xKqVi5;cJlKjoYQYcK.SiFHV5KVTgY;cJlKjoYQYcK.SOw3NHN47G7;cJlKjoYQYcK.r8hBd63qzn4;rqPSubIygbJ.ssMY53iFjYm;rqPSubIygbJ.sLKRSW7xmwp;DNdYViMTe8m.ssMY53iFjYm;DNdYViMTe8m.sLKRSW7xmwp;DNdYViMTe8m.sJUGNYho7Ey;DNdYViMTe8m.bJmK5mlfvQk;DNdYViMTe8m.RmWCNbUlKNT;DNdYViMTe8m.iEgy3xKqVi5;DNdYViMTe8m.SiFHV5KVTgY;DNdYViMTe8m.SOw3NHN47G7;DNdYViMTe8m.r8hBd63qzn4;rqPSubIygbJ.sJUGNYho7Ey;rqPSubIygbJ.bJmK5mlfvQk;rqPSubIygbJ.RmWCNbUlKNT;rqPSubIygbJ.iEgy3xKqVi5;rqPSubIygbJ.SiFHV5KVTgY;rqPSubIygbJ.SOw3NHN47G7;rqPSubIygbJ.r8hBd63qzn4;ZgZNqYI4j8m.ssMY53iFjYm;ZgZNqYI4j8m.sLKRSW7xmwp;ZgZNqYI4j8m.sJUGNYho7Ey;ZgZNqYI4j8m.bJmK5mlfvQk;ZgZNqYI4j8m.RmWCNbUlKNT;ZgZNqYI4j8m.iEgy3xKqVi5;ZgZNqYI4j8m.SiFHV5KVTgY;ZgZNqYI4j8m.SOw3NHN47G7;ZgZNqYI4j8m.r8hBd63qzn4;P1da2rLseDI.ssMY53iFjYm;P1da2rLseDI.sLKRSW7xmwp;P1da2rLseDI.sJUGNYho7Ey;P1da2rLseDI.bJmK5mlfvQk;P1da2rLseDI.RmWCNbUlKNT;P1da2rLseDI.iEgy3xKqVi5;P1da2rLseDI.SiFHV5KVTgY;P1da2rLseDI.SOw3NHN47G7;P1da2rLseDI.r8hBd63qzn4;t0srib18QsM.HllvX50cXC0;KBGFT3kwOKC.HllvX50cXC0;gSqSsblQSJ0.HllvX50cXC0;XZJCYgYVCsC.HllvX50cXC0;SHq0CoyCSFw.HllvX50cXC0;fnfYh6ZTlY2.HllvX50cXC0;oqVHB2xihvP.ssMY53iFjYm;oqVHB2xihvP.sLKRSW7xmwp;oqVHB2xihvP.sJUGNYho7Ey;oqVHB2xihvP.bJmK5mlfvQk;oqVHB2xihvP.RmWCNbUlKNT;oqVHB2xihvP.iEgy3xKqVi5;oqVHB2xihvP.SiFHV5KVTgY;oqVHB2xihvP.SOw3NHN47G7;oqVHB2xihvP.r8hBd63qzn4;oXGNeOZjg0F.HllvX50cXC0;aQ7C0r1YsV1.HllvX50cXC0;vcNUTL3PFS1.HllvX50cXC0;cvl4sv37KRj.HllvX50cXC0;xVLjOPuMe02.HllvX50cXC0;KKQuhnCMtEP.ssMY53iFjYm;KKQuhnCMtEP.sLKRSW7xmwp;KKQuhnCMtEP.sJUGNYho7Ey;KKQuhnCMtEP.bJmK5mlfvQk;KKQuhnCMtEP.RmWCNbUlKNT;KKQuhnCMtEP.iEgy3xKqVi5;KKQuhnCMtEP.SiFHV5KVTgY;KKQuhnCMtEP.SOw3NHN47G7;KKQuhnCMtEP.r8hBd63qzn4;kSShIs8ejPy.HllvX50cXC0;C5f5nB3USZ6.HllvX50cXC0;EIFg3dxRTm6.HllvX50cXC0;ZeItmMcJmlK.HllvX50cXC0;qldG2iRO23H.HllvX50cXC0;ps0bFERNaI8.HllvX50cXC0;mmwkAx1qU1B.ssMY53iFjYm;mmwkAx1qU1B.sLKRSW7xmwp;mmwkAx1qU1B.sJUGNYho7Ey;mmwkAx1qU1B.bJmK5mlfvQk;mmwkAx1qU1B.RmWCNbUlKNT;mmwkAx1qU1B.iEgy3xKqVi5;mmwkAx1qU1B.SiFHV5KVTgY;mmwkAx1qU1B.SOw3NHN47G7;mmwkAx1qU1B.r8hBd63qzn4;yligDLmShDN.HllvX50cXC0;IvsMptl5UT8.HllvX50cXC0;SL3O2NTNULs.HllvX50cXC0;ZTHSXqAvoRh.HllvX50cXC0;XIqXOpGgKW3.HllvX50cXC0;oLXCIJJx7vv.HllvX50cXC0;BTmzpqEarJu.HllvX50cXC0;y2DZFRXCUDf.HllvX50cXC0;x2A8wcnnmQK.HllvX50cXC0;mXWnPtBQw0A.ssMY53iFjYm;mXWnPtBQw0A.sLKRSW7xmwp;mXWnPtBQw0A.sJUGNYho7Ey;mXWnPtBQw0A.bJmK5mlfvQk;mXWnPtBQw0A.RmWCNbUlKNT;mXWnPtBQw0A.iEgy3xKqVi5;mXWnPtBQw0A.SiFHV5KVTgY;mXWnPtBQw0A.SOw3NHN47G7;mXWnPtBQw0A.r8hBd63qzn4;wOwLabpk4lJ.HllvX50cXC0;UfvUkjWzWHS.HllvX50cXC0;dowKCFTkX21.HllvX50cXC0;HhL5Ma8V4Xg.HllvX50cXC0;c2wpYi5Pb4q.HllvX50cXC0;o7pp9JgUEd0.HllvX50cXC0;DFEUctZegna.ssMY53iFjYm;DFEUctZegna.sLKRSW7xmwp;DFEUctZegna.sJUGNYho7Ey;DFEUctZegna.bJmK5mlfvQk;DFEUctZegna.RmWCNbUlKNT;DFEUctZegna.iEgy3xKqVi5;DFEUctZegna.SiFHV5KVTgY;DFEUctZegna.SOw3NHN47G7;DFEUctZegna.r8hBd63qzn4;TmujztOG0EK.ssMY53iFjYm;TmujztOG0EK.sLKRSW7xmwp;TmujztOG0EK.sJUGNYho7Ey;TmujztOG0EK.bJmK5mlfvQk;TmujztOG0EK.RmWCNbUlKNT;TmujztOG0EK.iEgy3xKqVi5;TmujztOG0EK.SiFHV5KVTgY;TmujztOG0EK.SOw3NHN47G7;TmujztOG0EK.r8hBd63qzn4;x3ZQjj5q9hJ.ssMY53iFjYm;x3ZQjj5q9hJ.sLKRSW7xmwp;x3ZQjj5q9hJ.sJUGNYho7Ey;x3ZQjj5q9hJ.bJmK5mlfvQk;x3ZQjj5q9hJ.RmWCNbUlKNT;x3ZQjj5q9hJ.iEgy3xKqVi5;x3ZQjj5q9hJ.SiFHV5KVTgY;x3ZQjj5q9hJ.SOw3NHN47G7;x3ZQjj5q9hJ.r8hBd63qzn4;iOUBfnKDDUd.HllvX50cXC0;HsNWdBITNHt.ssMY53iFjYm;HsNWdBITNHt.sLKRSW7xmwp;HsNWdBITNHt.sJUGNYho7Ey;HsNWdBITNHt.bJmK5mlfvQk;HsNWdBITNHt.RmWCNbUlKNT;HsNWdBITNHt.iEgy3xKqVi5;HsNWdBITNHt.SiFHV5KVTgY;HsNWdBITNHt.SOw3NHN47G7;HsNWdBITNHt.r8hBd63qzn4;u0VoltROklI.HllvX50cXC0;DDUZoDV8n2F.ssMY53iFjYm;DDUZoDV8n2F.sLKRSW7xmwp;DDUZoDV8n2F.sJUGNYho7Ey;DDUZoDV8n2F.bJmK5mlfvQk;DDUZoDV8n2F.RmWCNbUlKNT;DDUZoDV8n2F.iEgy3xKqVi5;DDUZoDV8n2F.SiFHV5KVTgY;DDUZoDV8n2F.SOw3NHN47G7;DDUZoDV8n2F.r8hBd63qzn4;BgbLInmNwUu.HllvX50cXC0;yAEMY0V2OHY.sJUGNYho7Ey;yAEMY0V2OHY.sLKRSW7xmwp;yAEMY0V2OHY.ssMY53iFjYm;yAEMY0V2OHY.bJmK5mlfvQk;yAEMY0V2OHY.r8hBd63qzn4;yAEMY0V2OHY.SOw3NHN47G7;yAEMY0V2OHY.SiFHV5KVTgY;yAEMY0V2OHY.iEgy3xKqVi5;yAEMY0V2OHY.RmWCNbUlKNT;sSGLC3rkVGs.HllvX50cXC0h'
+indicators_list = [indicators_a, indicators_b, indicators_c]
+FETCH_URL = 'https://test.sdgca.intellisoftkenya.com/nationalmrs/api/29/analytics.json?dimension=pe:'
 AUTH = requests.auth.HTTPBasicAuth(USERNAME, PASSWORD)
 FILE_NAME = 'data.csv'
-
-
+period = "2015"
 
 
 def fetch_data():
-    url = FETCH_URL
-    request = requests.get(
-        url,
-        auth=AUTH
-    )
-    return request.json()['rows']
+    for indicators in indicators_list:
+        url = FETCH_URL+period+"&dimension=dx:"+indicators+"&filter=ou:YIA7WLCOZd4&displayProperty=NAME"
+        request = requests.get(
+            url,
+            auth=AUTH
+        )
+        create_array(request.json()['rows'])
+    return 1
 
 
 def create_csv(filename):
-    ''' create a new csv file'''
+    """ create a new csv file"""
     with open(filename, 'w') as f:
         writer = csv.writer(f)
         writer.writerow(
-            ['dataelement', 'period', 'orgunit', 'catoptcombo', 'attroptcombo', 'value','storedby']
+            ['dataelement', 'period', 'orgunit', 'catoptcombo', 'attroptcombo', 'value', 'storedby']
         )
 
 
@@ -100,17 +50,18 @@ def create_array(data):
         dataelement = element_cat[0]
         catoptcombo = element_cat[1]
         period = dataitems[1]
-        if (".0" in dataitems[2]):
+        if ".0" in dataitems[2]:
             value = int(float(dataitems[2]))
         else:
             value = float(dataitems[2])
 
-        add_to_csv([dataelement,period,orgunit,catoptcombo,attroptcombo,value,storedby])
+        add_to_csv([dataelement, period, orgunit, catoptcombo, attroptcombo, value, storedby])
 
+    return 1
 
 
 def add_to_csv(details):
-    ''' add organisation units to the csv file '''
+    """ add organisation units to the csv file """
     with open(FILE_NAME, 'a') as f:
         writer = csv.writer(f)
         writer.writerow(details)
@@ -119,4 +70,5 @@ def add_to_csv(details):
 if __name__ == '__main__':
     create_csv(FILE_NAME)
     data_instance = fetch_data()
-    list_data = create_array(data_instance)
+    print(data_instance)
+    # list_data = create_array(data_instance)
