@@ -48,7 +48,10 @@ def create_array(data):
         dataelement_categoryoption = dataitems[0]
         element_cat = dataelement_categoryoption.split('.')
         dataelement = element_cat[0]
-        catoptcombo = element_cat[1]
+        if len(element_cat)>1:
+            catoptcombo = element_cat[1]
+        else:
+            catoptcombo = ""
         period = dataitems[1]
         if ".0" in dataitems[2]:
             value = int(float(dataitems[2]))
